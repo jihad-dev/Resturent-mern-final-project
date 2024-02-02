@@ -6,7 +6,9 @@ import { Helmet } from "react-helmet";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import Swal from "sweetalert2";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin ";
+import UseAxiosPublic from "../../hooks/UseAxiosPublic";
 const SignUp = () => {
+  const axiosPublic = UseAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -21,34 +23,25 @@ const SignUp = () => {
     createUser(data.email, data.password).then((result) => {
       const user = result.user;
       const SaveUser = { name: data.name, email: data.email };
-      updateUserProfile(data.name, data.photoURL)
-        .then(() => {
-          reset();
-          fetch("http://localhost:5000/users", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(SaveUser),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.insertedId) {
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Your account has been created",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-                navigate("/");
-              }
+      updateUserProfile(data.name, data.photoURL);
+      axiosPublic
+        .post("/users", SaveUser)
+        .then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your account has been created",
+              showConfirmButton: false,
+              timer: 1500,
             });
+            navigate("/");
+          }
         })
+
         .catch((error) => {
           console.error(error);
         });
-        
     });
   };
 
@@ -140,7 +133,7 @@ const SignUp = () => {
               {errors.password?.type === "pattern" && (
                 <p className="text-red-600">
                   Password must one uppercase one lowercase one special
-                  characters one number{" "}
+                  characters one number
                 </p>
               )}
             </div>

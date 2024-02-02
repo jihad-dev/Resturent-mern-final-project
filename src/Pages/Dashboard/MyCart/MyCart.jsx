@@ -4,10 +4,11 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import CartItem from "./CartItem";
 import Swal from "sweetalert2";
 import UseCart from "../../../hooks/UseCart";
+import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 
 const MyCart = () => {
   const [cart, refetch, isPending] = UseCart();
-  console.log(cart)
+  const axiosSecure = UseAxiosSecure();
   if (isPending) {
     return (
       <span className="min-h-screen flex justify-center items-center text-5xl">
@@ -40,13 +41,11 @@ const MyCart = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:5000/carts/${item._id}`, {
-            method: "DELETE",
-            body: JSON.stringify(result),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.deletedCount > 0) {
+          axiosSecure
+            .delete(`/carts/${item._id}`)
+
+            .then((res) => {
+              if (res.data.deletedCount > 0) {
                 refetch();
                 Swal.fire({
                   title: "Deleted!",
@@ -76,7 +75,9 @@ const MyCart = () => {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       {cart.length === 0 ? (
-        <h2 className="lg:text-5xl text-3xl flex justify-center items-center min-h-screen ">Your cart is empty</h2>
+        <h2 className="lg:text-5xl text-3xl flex justify-center items-center min-h-screen ">
+          Your cart is empty
+        </h2>
       ) : (
         <>
           <div className="pt-6">

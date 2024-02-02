@@ -47,12 +47,12 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/my-cart",
-        element: <MyCart></MyCart>,
+        element: <PrivateRoute><MyCart></MyCart></PrivateRoute>,
       },
 
       {
         path:'/dashboard/all-users',
-        element:<AllUsers></AllUsers>
+        element:<PrivateRoute><AllUsers></AllUsers></PrivateRoute>
       }
     ],
   },

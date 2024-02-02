@@ -4,51 +4,52 @@ import { AuthContext } from "../../Contexts/AuthProvider";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import UseCart from "../../hooks/UseCart";
-
+import UseAxiosSecure from "../../hooks/UseAxiosSecure";
 
 const FoodCard = ({ item }) => {
-  const { name, image, recipe, price,_id } = item;
+  const { name, image, recipe, price, _id } = item;
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const [,refetch] = UseCart();
+  const axiosSecure = UseAxiosSecure();
+  const [, refetch] = UseCart();
   const handleAddToCart = (item) => {
-    if(user && user?.email){
-      const cartItem = {menuItemId:_id,name,image,price,email:user?.email}
-      fetch('http://localhost:5000/carts',{
-        method: 'POST',
-        headers:{
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(cartItem)
-      })
-      .then(res => res.json())
-      .then(data =>{
-        if(data.insertedId){
-          refetch()
+    if (user && user?.email) {
+      const cartItem = {
+        menuItemId: _id,
+        name,
+        image,
+        price,
+        email: user?.email,
+      };
+      axiosSecure.post("/carts", cartItem).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          refetch();
           Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Your Item Added to Cart',
+            position: "top-end",
+            icon: "success",
+            title: "Your Item Added to Cart",
             showConfirmButton: false,
-            timer: 1500
-          })
+            timer: 1500,
+          });
         }
-      })
+      });
     }
-    else{
+  
+    else {
       Swal.fire({
-        title: 'please login to order the food',
-        icon: 'warning',
+        title: "please login to order the food",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Login now!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login now!",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate('/login',{state:{from:location}});
+          navigate("/login", { state: { from: location } });
         }
-      })
+      });
     }
   };
   return (
@@ -68,9 +69,8 @@ const FoodCard = ({ item }) => {
           onClick={() => handleAddToCart(item)}
           className="btn btn-outline border-0 border-b-4 px-12  my-7"
         >
-          Add To Cart 
+          Add To Cart
         </button>
-      
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import  { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider";
+import UseAxiosPublic from "../../../hooks/UseAxiosPublic";
 
 const SocialLogin = () => {
   const { googleLogin } = useContext(AuthContext);
@@ -8,26 +9,22 @@ const SocialLogin = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
   const handleGoogleLogin = () => {
+    const axiosPublic = UseAxiosPublic();
     googleLogin()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        const SaveUser = { name: user.displayName, email: user.email };
-        fetch("http://localhost:5000/users", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(SaveUser),
-        })
-          .then((res) => res.json())
-          .then(() => {
-            navigate(from, { replace: true });
-          });
+    .then(result =>{
+      const user = result.user;
+      console.log(user);
+      const SaveUser = {
+        email: user?.email,
+        name: user?.displayName
+      }
+      axiosPublic.post('/users' , SaveUser)
+      .then(res =>{
+        console.log('User saved successfully google')
+        navigate('/')
       })
-      .catch((error) => {
-        console.log(error);
-      });
+    })
+      
   };
   return (
     <div className="flex justify-center mb-5 gap-4">

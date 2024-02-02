@@ -20,7 +20,7 @@ const CartItem = ({ cartItem, index ,handleDelete}) => {
       </td>
       <td>${price.toFixed()}</td>
       <td>
-        <button  onClick={() => handleDelete(cartItem)} className="btn btn-ghost btn-xs">delete</button>
+        <button  onClick={() => handleDelete(cartItem)} className="btn btn-ghost bg-base-300 btn-xs">Delete</button>
       </td>
     </tr>
   );

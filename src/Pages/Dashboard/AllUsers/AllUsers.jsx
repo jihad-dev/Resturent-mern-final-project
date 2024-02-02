@@ -4,8 +4,10 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { FaTrashCan, FaUserShield } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 
 const AllUsers = () => {
+  const axiosSecure = UseAxiosSecure();
   const {
     isPending,
     refetch,
@@ -13,8 +15,8 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users");
-      return res.json();
+      const res = await axiosSecure.get("/users");
+      return res.data;
     },
   });
   if (isPending) {
@@ -22,10 +24,54 @@ const AllUsers = () => {
       <h1 className="text-5xl flex justify-center items-center">Loading...</h1>
     );
   }
-
   const handleDelete = (user) => {
-    console.log(user);
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: `You won't be able to ${user.name} this!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        // reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+         
+           axiosSecure.delete(`/users/${user._id}`)
+
+            .then((res) => {
+              if (res.data.deletedCount > 0) {
+                refetch();
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Your Item has been deleted.",
+                  icon: "success",
+                });
+              }
+            });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelled",
+            text: "Your user is safe :)",
+            icon: "error",
+          });
+        }
+      });
   };
+  // const handleDelete = (user) => {
+  //   console.log(user);
+  // };
   const handleMakeAdmin = (user) => {
     console.log(user)
     fetch(`http://localhost:5000/users/admin/${user._id}`,{
