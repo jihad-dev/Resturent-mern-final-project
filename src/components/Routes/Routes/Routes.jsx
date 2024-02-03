@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
 import Home from "../../../Pages/Home/Home/Home";
 import Menu from "../../../Pages/Menu/Menu/Menu";
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/my-cart",
-        element: <PrivateRoute><MyCart></MyCart></PrivateRoute>,
+        element: <MyCart></MyCart>
       },
 
       {
