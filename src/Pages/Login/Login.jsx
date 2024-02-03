@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  loadCaptchaEnginge,
-  LoadCanvasTemplate,
-  validateCaptcha,
-} from "react-simple-captcha";
+import {loadCaptchaEnginge,LoadCanvasTemplate,validateCaptcha,} from "react-simple-captcha";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import authImg from "../../assets/others/authentication2.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import { Helmet } from "react-helmet";
@@ -126,7 +121,7 @@ const Login = () => {
             <div className="form-control mt-6">
               <input
                 disabled={disabled}
-                className="btn btn-primary "
+                className="btn btn-primary mb-2 "
                 type="submit"
                 value="Login"
               />
