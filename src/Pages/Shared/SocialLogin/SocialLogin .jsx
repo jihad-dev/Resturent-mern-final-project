@@ -13,14 +13,13 @@ const SocialLogin = () => {
     googleLogin()
     .then(result =>{
       const user = result.user;
-      console.log(user);
       const SaveUser = {
         email: user?.email,
         name: user?.displayName
       }
       axiosPublic.post('/users' , SaveUser)
       .then(res =>{
-        console.log('User saved successfully google')
+        
         navigate('/')
       })
     })
