@@ -44,8 +44,8 @@ const AllUsers = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-         
-           axiosSecure.delete(`/users/${user._id}`)
+          axiosSecure
+            .delete(`/users/${user._id}`)
 
             .then((res) => {
               if (res.data.deletedCount > 0) {
@@ -69,29 +69,24 @@ const AllUsers = () => {
         }
       });
   };
-  // const handleDelete = (user) => {
-  //   console.log(user);
-  // };
-  const handleMakeAdmin = (user) => {
-    console.log(user)
-    fetch(`http://localhost:5000/users/admin/${user._id}`,{
-    method:'PATCH',
 
-})
-.then(res => res.json())
-.then(data =>{
-    if(data.modifiedCount > 0){
-        refetch()
-        Swal.fire({
+  const handleMakeAdmin = (user) => {
+    axiosSecure
+      .patch(`/users/admin/${user._id}`)
+
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
             position: "top-end",
             icon: "success",
             title: `${user.name} is admin now !!`,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
-    }
-})
-}
+        }
+      });
+  };
   return (
     <div className="my-8 w-full">
       <SectionTitle
@@ -119,11 +114,16 @@ const AllUsers = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-                    <Link onClick={() => handleMakeAdmin(user)} className="text-[24px]">{user.role === "admin" ? (
-                      "admin"
-                    ) : (
-                      <FaUserShield></FaUserShield>
-                    )}</Link>
+                    <Link
+                      onClick={() => handleMakeAdmin(user)}
+                      className="text-[24px]"
+                    >
+                      {user.role === "admin" ? (
+                        "admin"
+                      ) : (
+                        <FaUserShield></FaUserShield>
+                      )}
+                    </Link>
                   </td>
                   <td>
                     <Link
