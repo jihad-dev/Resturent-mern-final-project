@@ -30,16 +30,16 @@ const Dashboard = () => {
           {isAdmin ? (
             <>
               <li>
-                <Link>🏠 Admin Home</Link>
+                <Link to='/dashboard/profile'>🏠 Admin Profile</Link>
               </li>
               <li>
-                <Link>➕ADD ITEMS</Link>
+                <Link to='/dashboard/add-items'>➕ADD ITEMS</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/dashboard/my-cart">
                MANAGE ITEMS
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/">📑MANAGE BOOKINGS</Link>
               </li>
@@ -50,19 +50,19 @@ const Dashboard = () => {
           ) : (
             <>
               <li>
-                <Link>🏠 User Home</Link>
+                <Link to='/dashboard/profile'>🏠 User Profile</Link>
               </li>
               <li>
                 <Link>✌️Reservation</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/dashboard/my-cart">
                 My cart
                   <div className="bg-neutral p-0 text-neutral-content rounded-full w-8">
                     <span className="text-xs px-2 ">+{cart?.length || 0}</span>
                   </div>
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/">🤑 payment history</Link>
               </li>

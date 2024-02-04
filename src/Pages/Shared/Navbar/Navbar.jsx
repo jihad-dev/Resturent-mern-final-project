@@ -6,6 +6,7 @@ import UseCart from "../../../hooks/UseCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  console.log('usersjsdhjghjsdfgdsfg',user)
   const [cart] = UseCart();
   const handleLogOut = () => {
     logOut()
@@ -80,9 +81,17 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{NavbarItems}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
-      </div>
+    {/* photoURL */}
+    { user?.uid ? <Link to='/dashboard/profile'><div className="avatar online">
+    <div className="w-10 rounded-full">
+      <img src={user?.photoURL} />
+    </div>
+    </div></Link> : <Link to='/dashboard/profile'><div className="avatar online">
+    <div className="w-10 rounded-full">
+      <img src={user?.photoURL} />
+    </div>
+    </div></Link>}
+
     </div>
   );
 };

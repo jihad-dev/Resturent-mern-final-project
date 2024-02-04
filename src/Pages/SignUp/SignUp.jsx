@@ -19,6 +19,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleSignUp = (data) => {
+    console.log('signup data',data)
     createUser(data.email, data.password).then((result) => {
       const user = result.user;
       const SaveUser = { name: data.name, email: data.email };
