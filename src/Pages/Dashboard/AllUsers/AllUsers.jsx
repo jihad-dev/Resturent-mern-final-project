@@ -5,6 +5,7 @@ import { FaTrashCan, FaUserShield } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const AllUsers = () => {
   const axiosSecure = UseAxiosSecure();
@@ -88,6 +89,11 @@ const AllUsers = () => {
       });
   };
   return (
+    <>
+      <Helmet>
+        <title>Bistro | All Users</title>
+      </Helmet>
+      
     <div className="my-8 w-full">
       <SectionTitle
         heading="MANAGE ALL USERS"
@@ -140,6 +146,7 @@ const AllUsers = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

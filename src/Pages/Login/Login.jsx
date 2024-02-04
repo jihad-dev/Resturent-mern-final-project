@@ -6,6 +6,7 @@ import { AuthContext } from "../../Contexts/AuthProvider";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin ";
+
 const Login = () => {
   const [visible, setVisible] = useState(false);
   const location = useLocation();
@@ -51,8 +52,9 @@ const Login = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-24">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 mb-10 text-center lg:text-4xl font-extrabold text-gray-900">
-          Login to your account
+          Login to your account 👋
         </h2>
+      
       </div>
 
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -69,6 +71,7 @@ const Login = () => {
                 <input
                   type="email"
                   name="email"
+                placeholder="example@example.com"
                   autoComplete="email"
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
