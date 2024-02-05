@@ -13,6 +13,7 @@ import Profile from "../../../Pages/Profile/Profile";
 import AdminRoute from "./AdminRoute";
 import AddItems from "../../../Pages/Dashboard/AddItems/AddItems";
 import ManageItems from "../../../Pages/Dashboard/ManageItems/ManageItems";
+import UpdateItem from "../../../Pages/Dashboard/UpdateItem/UpdateItem";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +67,14 @@ export const router = createBrowserRouter([
       {
         path:'/dashboard/manage-items',
         element:<AdminRoute><ManageItems></ManageItems></AdminRoute>
+      },
+      {
+        path:'/dashboard/updateItem/:id',
+        element:<AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
+        loader: async ({params}) => {
+          return  fetch(`http://localhost:5000/menu/${params.id}`)
+        }
+       
       },
       {
         path:'/dashboard/profile',

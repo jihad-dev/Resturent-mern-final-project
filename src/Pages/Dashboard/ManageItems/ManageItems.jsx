@@ -10,14 +10,37 @@ import Swal from 'sweetalert2';
 
 
 const ManageItems = () => {
-    const [menu,loading] = UseMenu();
-    const axiosSecure = UseAxiosSecure();
+    const [menu,loading,refetch] = UseMenu();
+   const axiosSecure = UseAxiosSecure()
 
         if(loading){
             return <Loader></Loader>
           
         }
         const handleMenuDelete = (item) =>{
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+            const res =  await axiosSecure.delete(`/menu/${item._id}`)
+             console.log(res.data)
+             if(res.data.deletedCount > 0) {
+              refetch()
+               Swal.fire({
+                title: "Deleted!",
+                text: `Your ${item.name} has been deleted successfully`,
+                icon: "success"
+              });
+            }
+           
+            }
+          });
         console.log(item);
         }
 
@@ -55,7 +78,7 @@ const ManageItems = () => {
                   <td>{item.name}</td>
                   <td className='text-right'>${item.price}</td>
                   <td>
-                 <Link
+                 <Link to={`/dashboard/updateItem/${item._id}`}
                     className="text-[24px]" >                  
                         <FaEdit></FaEdit>
                     </Link>
