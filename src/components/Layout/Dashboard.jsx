@@ -35,11 +35,11 @@ const Dashboard = () => {
               <li>
                 <Link to='/dashboard/add-items'>➕ADD ITEMS</Link>
               </li>
-              {/* <li>
-                <Link to="/dashboard/my-cart">
-               MANAGE ITEMS
+              <li>
+                <Link to="/dashboard/manage-items">
+               🧔‍♂️MANAGE ITEMS
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link to="/">📑MANAGE BOOKINGS</Link>
               </li>

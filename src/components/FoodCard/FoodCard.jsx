@@ -23,7 +23,7 @@ const FoodCard = ({ item }) => {
         email: user?.email,
       };
       axiosSecure.post("/carts", cartItem).then((res) => {
-        console.log(res.data);
+      
         if (res.data.insertedId) {
           refetch();
           Swal.fire({

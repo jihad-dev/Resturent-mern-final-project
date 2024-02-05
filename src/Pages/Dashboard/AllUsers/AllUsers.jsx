@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 import { Helmet } from "react-helmet";
+import Loader from "../../Shared/Loader/Loader";
 
 const AllUsers = () => {
   const axiosSecure = UseAxiosSecure();
@@ -21,9 +22,7 @@ const AllUsers = () => {
     },
   });
   if (isPending) {
-    return (
-      <h1 className="text-5xl flex justify-center items-center">Loading...</h1>
-    );
+    return <Loader></Loader>
   }
   const handleDelete = (user) => {
     const swalWithBootstrapButtons = Swal.mixin({
