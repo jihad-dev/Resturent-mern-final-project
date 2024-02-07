@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import CartItem from "./CartItem";
 import Swal from "sweetalert2";
 import UseCart from "../../../hooks/UseCart";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
+import UseAxiosPublic from "../../../hooks/UseAxiosPublic";
+
 
 const MyCart = () => {
   const [cart, refetch, isPending] = UseCart();
+ 
   const axiosSecure = UseAxiosSecure();
+  const axiosPublic = UseAxiosPublic();
   if (isPending) {
     return (
       <span className="min-h-screen flex justify-center items-center text-5xl">
@@ -66,6 +70,25 @@ const MyCart = () => {
         }
       });
   };
+
+  // TODO: Implement product quantity handling //
+
+// const handleIncrease = (item) => {
+//   axiosPublic.patch(`/carts/${item._id}`)
+//   .then(res =>{
+//     console.log(res.data)
+//     if(res.data.modifiedCount > 0) {
+//       Swal.fire({
+//         title: "Updated!",
+//         text: "Your Item quantity has been updated successfully .",
+//         icon: "success",
+//       });
+//     }
+//   })
+//   console.log(item)
+// }
+
+
   return (
     <div>
       <Helmet>
@@ -103,6 +126,8 @@ const MyCart = () => {
                   <th>ITEM NAME</th>
                   <th>PRICE</th>
                   <th>ACTION</th>
+           
+                  
                 </tr>
               </thead>
               <tbody>
@@ -112,6 +137,7 @@ const MyCart = () => {
                     cartItem={cartItem}
                     key={cartItem._id}
                     handleDelete={handleDelete}
+           
                   ></CartItem>
                 ))}
               </tbody>
@@ -124,3 +150,4 @@ const MyCart = () => {
 };
 
 export default MyCart;
+

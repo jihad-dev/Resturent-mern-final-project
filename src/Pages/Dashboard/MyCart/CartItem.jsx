@@ -3,6 +3,7 @@ import React from "react";
 const CartItem = ({ cartItem, index ,handleDelete}) => {
   const { name, image, price} = cartItem;
 
+  
   return (
     <tr>
       <td>{index + 1}</td>
@@ -22,6 +23,8 @@ const CartItem = ({ cartItem, index ,handleDelete}) => {
       <td>
         <button  onClick={() => handleDelete(cartItem)} className="btn btn-ghost bg-base-300 btn-xs">Delete</button>
       </td>
+      
+
     </tr>
   );
 };
