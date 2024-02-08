@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import UseCart from "../../../hooks/UseCart";
 import UseAxiosPublic from "../../../hooks/UseAxiosPublic";
 import { AuthContext } from "../../../Contexts/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
   const [Error, setError] = useState("");
@@ -15,7 +17,8 @@ const CheckoutForm = () => {
   const elements = useElements();
   const axiosSecure = UseAxiosSecure();
   const axiosPublic = UseAxiosPublic();
-  const [cart] = UseCart();
+  const [cart, refetch] = UseCart();
+  const navigate = useNavigate();
 
   // Using reduce to calculate the total amount
   const totalPrice = cart.reduce((total, item) => {
@@ -24,12 +27,14 @@ const CheckoutForm = () => {
   console.log(totalPrice, "totalPrice inside cart");
 
   useEffect(() => {
-    axiosSecure
-      .post("/create-payment-intent", { price: totalPrice })
-      .then((res) => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: totalPrice })
+        .then((res) => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
+    }
   }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
@@ -80,6 +85,31 @@ const CheckoutForm = () => {
       if (paymentIntent.status === "succeeded") {
         console.log("transaction id", paymentIntent.id);
         SetTransactionId(paymentIntent.id);
+        // now save the payment information to the database //
+
+        const paymentsInfo = {
+          email: user?.email,
+          price: totalPrice,
+          transactionId: paymentIntent.id,
+          date: Date.now(),
+          cartIds: cart.map((item) => item._id),
+          menuItemIds: cart.map((item) => item.menuItemId),
+          status: "pending",
+        };
+
+        const res = await axiosSecure.post("/payments", paymentsInfo);
+        console.log(res.data);
+        if (res.data?.paymentResult.insertedId) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Thanks for the taka paisa!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/dashboard/payment-history");
+        }
       }
     }
   };

@@ -98,7 +98,7 @@ const AllUsers = () => {
         heading="MANAGE ALL USERS"
         subHeading="---How many??---"
       ></SectionTitle>
-      <div className="lg:mx-16 bg-base-300 lg:p-9 h-auto w-full">
+      <div className="lg:mx-6 bg-base-300 lg:p-9 h-auto w-full">
         <h3 className=" text-2xl p-2">Total users: {users.length} </h3>
         <div className="overflow-x-auto lg:px-6 mt-6">
           <table className="table">

@@ -41,7 +41,15 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/">📑MANAGE BOOKINGS</Link>
+                <Link to="/dashboard/my-cart">
+                My cart
+                  <div className="bg-neutral p-0 text-neutral-content rounded-full w-8">
+                    <span className="text-xs px-2 ">+{cart?.length || 0}</span>
+                  </div>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/payment-history">🤑 payment history</Link>
               </li>
               <li>
                 <Link to="/dashboard/all-users">👥 ALL USERS</Link>
@@ -52,19 +60,22 @@ const Dashboard = () => {
               <li>
                 <Link to='/dashboard/profile'>🏠 User Profile</Link>
               </li>
-              <li>
-                <Link>✌️Reservation</Link>
-              </li>
               {/* <li>
+                <Link>✌️Reservation</Link>
+              </li> */}
+              <li>
                 <Link to="/dashboard/my-cart">
                 My cart
                   <div className="bg-neutral p-0 text-neutral-content rounded-full w-8">
                     <span className="text-xs px-2 ">+{cart?.length || 0}</span>
                   </div>
                 </Link>
-              </li> */}
+              </li>
               <li>
-                <Link to="/">🤑 payment history</Link>
+                <Link to="/dashboard/add-review">⭐Add Review</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/payment-history">🤑 payment history</Link>
               </li>
             </>
           )}
@@ -73,17 +84,7 @@ const Dashboard = () => {
           <li>
             <Link to="/">🏠 Home</Link>
           </li>
-          <li>
-                <Link to="/dashboard/my-cart">
-                My cart
-                  <div className="bg-neutral p-0 text-neutral-content rounded-full w-8">
-                    <span className="text-xs px-2 ">+{cart?.length || 0}</span>
-                  </div>
-                </Link>
-              </li>
-          {/* <li>
-            <Link to="/dashboard/my-cart">🛒 My Cart</Link>
-          </li> */}
+
           <li>
             <Link to="/menu">Our Menu</Link>
           </li>
