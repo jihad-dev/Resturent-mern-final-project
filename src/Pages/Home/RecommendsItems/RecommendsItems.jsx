@@ -19,7 +19,7 @@ const RecommendsItems = () => {
         heading={"CHEF RECOMMENDS"}
         subHeading={"---Should Try---"}
       ></SectionTitle>
-      <div className="grid   md:grid-cols-3 gap-8  ">
+      <div  className="grid md:grid-cols-3 gap-8  ">
         {recommendsItems.slice(1, 4).map((recommendation) => (
           <RecommendsItem
             key={recommendation._id}

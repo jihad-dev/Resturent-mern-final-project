@@ -6,11 +6,11 @@ import Swal from "sweetalert2";
 import UseCart from "../../../hooks/UseCart";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 import UseAxiosPublic from "../../../hooks/UseAxiosPublic";
-
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const [cart, refetch, isPending] = UseCart();
- 
+
   const axiosSecure = UseAxiosSecure();
   const axiosPublic = UseAxiosPublic();
   if (isPending) {
@@ -21,8 +21,8 @@ const MyCart = () => {
     );
   }
   // Using reduce to calculate the total amount
-  const totalAmount = cart.reduce((sum, item) => {
-    return item.price + sum;
+  const totalAmount = cart.reduce((total, item) => {
+    return item.price + total;
   }, 0);
   // cart item delete functionality
   const handleDelete = (item) => {
@@ -72,22 +72,20 @@ const MyCart = () => {
   };
 
   // TODO: Implement product quantity handling //
-
-// const handleIncrease = (item) => {
-//   axiosPublic.patch(`/carts/${item._id}`)
-//   .then(res =>{
-//     console.log(res.data)
-//     if(res.data.modifiedCount > 0) {
-//       Swal.fire({
-//         title: "Updated!",
-//         text: "Your Item quantity has been updated successfully .",
-//         icon: "success",
-//       });
-//     }
-//   })
-//   console.log(item)
-// }
-
+  // const handleIncrease = (item) => {
+  //   axiosPublic.patch(`/carts/${item._id}`)
+  //   .then(res =>{
+  //     console.log(res.data)
+  //     if(res.data.modifiedCount > 0) {
+  //       Swal.fire({
+  //         title: "Updated!",
+  //         text: "Your Item quantity has been updated successfully .",
+  //         icon: "success",
+  //       });
+  //     }
+  //   })
+  //   console.log(item)
+  // }
 
   return (
     <div>
@@ -112,9 +110,11 @@ const MyCart = () => {
           <div className="flex uppercase justify-around  ">
             <h2 className="lg:text-3xl">Total Items : {cart.length} </h2>
             <h2 className="lg:text-3xl">
-              Total Price : ${totalAmount.toFixed()}{" "}
+              Total Price : ${totalAmount}
             </h2>
-            <button className="btn btn-warning btn-sm">PAY</button>
+            <Link to="/dashboard/payment">
+              <button className="btn btn-warning btn-sm">PAY</button>
+            </Link>
           </div>
           <div className="overflow-x-auto lg:px-6 mt-6">
             <table className="table">
@@ -126,8 +126,6 @@ const MyCart = () => {
                   <th>ITEM NAME</th>
                   <th>PRICE</th>
                   <th>ACTION</th>
-           
-                  
                 </tr>
               </thead>
               <tbody>
@@ -137,7 +135,6 @@ const MyCart = () => {
                     cartItem={cartItem}
                     key={cartItem._id}
                     handleDelete={handleDelete}
-           
                   ></CartItem>
                 ))}
               </tbody>
@@ -150,4 +147,3 @@ const MyCart = () => {
 };
 
 export default MyCart;
-
