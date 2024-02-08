@@ -30,7 +30,7 @@ const Dashboard = () => {
           {isAdmin ? (
             <>
               <li>
-                <Link to='/dashboard/profile'>🏠 Admin Profile</Link>
+                <Link to='/dashboard/admin-home'>🏠 Admin Home</Link>
               </li>
               <li>
                 <Link to='/dashboard/add-items'>➕ADD ITEMS</Link>
@@ -58,11 +58,9 @@ const Dashboard = () => {
           ) : (
             <>
               <li>
-                <Link to='/dashboard/profile'>🏠 User Profile</Link>
+                <Link to='/dashboard/user-home'>🏠 User Home</Link>
               </li>
-              {/* <li>
-                <Link>✌️Reservation</Link>
-              </li> */}
+              
               <li>
                 <Link to="/dashboard/my-cart">
                 My cart

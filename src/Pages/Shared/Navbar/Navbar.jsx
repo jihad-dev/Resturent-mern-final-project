@@ -37,9 +37,11 @@ const Navbar = () => {
 
       <li>
         {user ? (
-          <Link to='/login'><button className="btn btn-ghost" onClick={handleLogOut}>
-          Log out
-        </button></Link>
+          <Link to="/login">
+            <button className="btn btn-ghost" onClick={handleLogOut}>
+              Log out
+            </button>
+          </Link>
         ) : (
           <Link to="/login">Login</Link>
         )}
@@ -81,13 +83,14 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{NavbarItems}</ul>
       </div>
-    {/* photoURL */}
-    { user?.uid  && <Link to='/dashboard/profile'><div className="avatar online">
-    <div className="w-10 rounded-full">
-      <img src={user?.photoURL} />
-    </div>
-    </div></Link> }
-
+      {/* photoURL */}
+      <Link to="/dashboard/admin-home">
+        <div className="avatar online">
+          <div className="w-10 rounded-full">
+            <img src={user?.photoURL} />
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };
