@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import { FaShoppingCart } from "react-icons/fa";
 import UseCart from "../../../hooks/UseCart";
-
+import logo from "../../../assets/icon/logo.png";
+import UseAdmin from "../../../hooks/UseAdmin";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
   const [cart] = UseCart();
+  const [isAdmin] = UseAdmin();
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -26,21 +28,26 @@ const Navbar = () => {
       <li>
         <Link to="/order/salad">Order Food</Link>
       </li>
+      { user && isAdmin &&<li>
+        <Link to="/dashboard/admin-home">Dashboard</Link>
+      </li>}
+      { user && !isAdmin &&<li><Link to="/dashboard/user-home">Dashboard</Link></li>}
       <li>
-        <Link to="/dashboard/my-cart">
-          <button className="btn gap-2">
+        <Link
+          className="bg-white text-primary hover:text-blue-600 h-8 my-2"
+          to="/dashboard/my-cart"
+        >
+          <div className="flex gap-2 rounded ">
             <FaShoppingCart></FaShoppingCart>
-            <div className="badge badge-secondary">+{cart?.length || 0}</div>
-          </button>
+            <button className="">+{cart?.length || 0}</button>
+          </div>
         </Link>
       </li>
 
       <li>
-        {user ? (
-          <Link to="/login">
-            <button className="btn btn-ghost" onClick={handleLogOut}>
-              Log out
-            </button>
+        {user?.email ? (
+          <Link to="/login" onClick={handleLogOut}>
+            Log out
           </Link>
         ) : (
           <Link to="/login">Login</Link>
@@ -81,16 +88,20 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{NavbarItems}</ul>
+        <ul className="menu menu-horizontal px-1">
+          {NavbarItems}
+          {/* photoURL */}
+          {user?.uid && (
+            <Link>
+              <div className="avatar online">
+                <div className="w-10 rounded-full">
+                  <img src={user?.photoURL} />
+                </div>
+              </div>
+            </Link>
+          )}
+        </ul>
       </div>
-      {/* photoURL */}
-      <Link to="/dashboard/admin-home">
-        <div className="avatar online">
-          <div className="w-10 rounded-full">
-            <img src={user?.photoURL} />
-          </div>
-        </div>
-      </Link>
     </div>
   );
 };

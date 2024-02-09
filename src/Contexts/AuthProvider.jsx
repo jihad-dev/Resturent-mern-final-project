@@ -11,7 +11,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
-import axios from "axios";
 import UseAxiosPublic from "../hooks/UseAxiosPublic";
 const auth = getAuth(app);
 
@@ -40,6 +39,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const googleLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, GoogleProvider);
   };
 
@@ -50,13 +50,16 @@ const AuthProvider = ({ children }) => {
       // jwt authentication //
       if (currentUser) {
         const userInfo = { email: currentUser?.email };
-        axiosPublic.post("/jwt", userInfo).then((res) => {
+        axiosPublic.post("/jwt", userInfo)
+        .then((res) => {
           if (res.data.token) {
             localStorage.setItem("access_token", res.data.token);
             setLoading(false);
           }
         });
-      } else {
+      } 
+      
+      else {
         localStorage.removeItem("access_token");
         setLoading(false);
       }

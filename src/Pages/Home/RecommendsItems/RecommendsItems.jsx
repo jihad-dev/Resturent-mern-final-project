@@ -20,9 +20,9 @@ const RecommendsItems = () => {
         subHeading={"---Should Try---"}
       ></SectionTitle>
       <div  className="grid md:grid-cols-3 gap-8  ">
-        {recommendsItems.slice(1, 4).map((recommendation) => (
+        {recommendsItems.slice(1, 4).map((recommendation,i) => (
           <RecommendsItem
-            key={recommendation._id}
+            key={i}
             recommendation={recommendation}
           ></RecommendsItem>
         ))}

@@ -97,7 +97,7 @@ const MyCart = () => {
       </Helmet>
       {cart.length === 0 ? (
         <h2 className="lg:text-5xl text-3xl flex justify-center items-center min-h-screen ">
-          Your cart is empty
+          Your cart is empty !!
         </h2>
       ) : (
         <>
@@ -109,9 +109,7 @@ const MyCart = () => {
           </div>
           <div className="flex uppercase justify-around  ">
             <h2 className="lg:text-3xl">Total Items : {cart.length} </h2>
-            <h2 className="lg:text-3xl">
-              Total Price : ${totalAmount}
-            </h2>
+            <h2 className="lg:text-3xl">Total Price : ${totalAmount}</h2>
             <Link to="/dashboard/payment">
               <button className="btn btn-warning btn-sm">PAY</button>
             </Link>

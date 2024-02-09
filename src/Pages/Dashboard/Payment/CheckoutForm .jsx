@@ -24,14 +24,14 @@ const CheckoutForm = () => {
   const totalPrice = cart.reduce((total, item) => {
     return item.price + total;
   }, 0);
-  console.log(totalPrice, "totalPrice inside cart");
+
 
   useEffect(() => {
     if (totalPrice > 0) {
       axiosSecure
         .post("/create-payment-intent", { price: totalPrice })
         .then((res) => {
-          console.log(res.data.clientSecret);
+         
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -59,7 +59,7 @@ const CheckoutForm = () => {
       console.log("[error]", error);
       setError(error.message);
     } else {
-      console.log("[PaymentMethod]", paymentMethod);
+      
       setError("");
     }
     // confirmation message from Stripe payment method
@@ -81,9 +81,9 @@ const CheckoutForm = () => {
         confirmError
       );
     } else {
-      console.log("payment intent from Stripe payment method", paymentIntent);
+
       if (paymentIntent.status === "succeeded") {
-        console.log("transaction id", paymentIntent.id);
+       
         SetTransactionId(paymentIntent.id);
         // now save the payment information to the database //
 
@@ -98,7 +98,6 @@ const CheckoutForm = () => {
         };
 
         const res = await axiosSecure.post("/payments", paymentsInfo);
-        console.log(res.data);
         if (res.data?.paymentResult.insertedId) {
           refetch();
           Swal.fire({

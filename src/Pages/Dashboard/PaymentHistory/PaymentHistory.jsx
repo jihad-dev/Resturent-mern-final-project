@@ -30,7 +30,7 @@ const PaymentHistory = () => {
       ></SectionTitle>
       <div className="lg:mx-6 bg-base-300 lg:p-9 h-auto w-full">
         <h1 className="px-4 text-2xl lg:text-4xl font-bold ">
-          Total Amount : {payments.length}
+          Total Payment : {payments.length}
         </h1>
         <div className="overflow-x-auto lg:px-6 mt-6">
           <table className="table">
@@ -42,7 +42,7 @@ const PaymentHistory = () => {
                 <th>PRICE</th>
                 <th>TRANSACTION ID</th>
                 <th>STATUS</th>
-                <th>DATE</th>
+                {/* <th>DATE</th> */}
               </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@ const PaymentHistory = () => {
                   <td>${payment.price}</td>
                   <td>{payment.transactionId}</td>
                   <td>{payment.status}</td>
-                  <td>{payment.date}</td>
+                  {/* <td>{payment.date}</td> */}
                 </tr>
               ))}
             </tbody>

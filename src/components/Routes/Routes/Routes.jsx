@@ -9,7 +9,6 @@ import Dashboard from "../../Layout/Dashboard";
 import MyCart from "../../../Pages/Dashboard/MyCart/MyCart";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import AllUsers from "../../../Pages/Dashboard/AllUsers/AllUsers";
-import Profile from "../../../Pages/Profile/Profile";
 import AdminRoute from "./AdminRoute";
 import AddItems from "../../../Pages/Dashboard/AddItems/AddItems";
 import ManageItems from "../../../Pages/Dashboard/ManageItems/ManageItems";
@@ -18,6 +17,7 @@ import Payment from "../../../Pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../../../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import AdminHome from "../../../Pages/Dashboard/AdminHome/AdminHome";
 import UserHome from "../../../Pages/Dashboard/UserHome/UserHome";
+import ErrorPage from "../../../Pages/Shared/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
         path:'/dashboard/updateItem/:id',
         element:<AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
         loader: async ({params}) => {
-          return  fetch(`http://localhost:5000/menu/${params.id}`)
+          return  fetch(`https://bistroo-boss-server.vercel.app/menu/${params.id}`)
         }
        
       },
@@ -100,5 +100,9 @@ export const router = createBrowserRouter([
       }
     ],
   },
+  {
+  path:'*',
+  element:<ErrorPage></ErrorPage>
+  }
 
 ]);
