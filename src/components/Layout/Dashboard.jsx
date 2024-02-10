@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import UseCart from "../../hooks/UseCart";
 import UseAdmin from "../../hooks/UseAdmin";
 
@@ -30,64 +30,62 @@ const Dashboard = () => {
           {isAdmin ? (
             <>
               <li>
-                <Link to='/dashboard/admin-home'>🏠 Admin Home</Link>
+                <NavLink to="/dashboard/admin-home">🏠 Admin Home</NavLink>
               </li>
               <li>
-                <Link to='/dashboard/add-items'>➕ADD ITEMS</Link>
+                <NavLink to="/dashboard/add-items">➕ADD ITEMS</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/manage-items">
-               🧔‍♂️MANAGE ITEMS
-                </Link>
+                <NavLink to="/dashboard/manage-items">🧔‍♂️MANAGE ITEMS</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/my-cart">
-                My cart
+                <NavLink to="/dashboard/my-cart">
+                  My cart
                   <div className="bg-neutral p-0 text-neutral-content rounded-full w-8">
                     <span className="text-xs px-2 ">+{cart?.length || 0}</span>
                   </div>
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link to="/dashboard/payment-history">🤑 payment history</Link>
+                <NavLink to="/dashboard/payment-history">🤑 payment history</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/all-users">👥 ALL USERS</Link>
+                <NavLink to="/dashboard/all-users">👥 ALL USERS</NavLink>
               </li>
             </>
           ) : (
             <>
               <li>
-                <Link to='/dashboard/user-home'>🏠 User Home</Link>
+                <NavLink to="/dashboard/user-home">🏠 User Home</NavLink>
               </li>
-              
+
               <li>
-                <Link to="/dashboard/my-cart">
-                My cart
+                <NavLink to="/dashboard/my-cart">
+                  My cart
                   <div className="bg-neutral p-0 text-neutral-content rounded-full w-8">
                     <span className="text-xs px-2 ">+{cart?.length || 0}</span>
                   </div>
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link to="/dashboard/add-review">⭐Add Review</Link>
+                <NavLink to="/dashboard/add-review">⭐Add Review</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/payment-history">🤑 payment history</Link>
+                <NavLink to="/dashboard/payment-history">🤑 payment history</NavLink>
               </li>
             </>
           )}
 
           <div className="divider divider-info"></div>
           <li>
-            <Link to="/">🏠 Home</Link>
+            <NavLink to="/">🏠 Home</NavLink>
           </li>
 
           <li>
-            <Link to="/menu">Our Menu</Link>
+            <NavLink to="/menu">Our Menu</NavLink>
           </li>
           <li>
-            <Link to="/order/salad">Order Food</Link>
+            <NavLink to="/order/salad">Order Food</NavLink>
           </li>
         </ul>
       </div>

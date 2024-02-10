@@ -7,12 +7,12 @@ const axiosSecure = axios.create({
   baseURL: "https://bistroo-boss-server.vercel.app",
 });
 const UseAxiosSecure = () => {
+  console.log
   const navigate = useNavigate();
   const { logOut } = useContext(AuthContext);
   axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("access_token");
-      console.log('token paya jai na nana ananana nana ann',token)
       config.headers.authorization = `Bearer ${token}`;
       return config;
     },
